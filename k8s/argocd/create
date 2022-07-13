@@ -1,0 +1,14 @@
+#!/bin/bash
+set -eo pipefail
+
+if kubectl get namespace argocd; then
+  echo 'argocd namespace already exists'
+else
+  kubectl create namespace argocd
+fi
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+timeout 60s kubectl get pods --watch
+echo 'You can now login to the ArgoCD GUI after running kubectl port-forward svc/argocd-server 8080:80'
+echo "Login with admin:$(kubectl get secrets -o json argocd-initial-admin-secret | jq -r '.data.password' | base64 -d)"
+
