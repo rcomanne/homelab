@@ -90,6 +90,10 @@ fabric.properties
 *.tfstate
 *.tfstate.*
 
+# .tfplan files
+*.tfplan
+*.tfplan.*
+
 # Crash log files
 crash.log
 
@@ -118,3 +122,4 @@ override.tf.json
 .terraformrc
 terraform.rc
 
+**/talos/.out
