@@ -50,17 +50,17 @@ variable "k8s_master_ram" {
 variable "k8s_worker_count" {
   type = number
   description = "The number worker nodes to create"
-  default = 2
+  default = 3
 }
 
 variable "k8s_worker_cpu" {
   type = number
   description = "The number of CPU cores to allocate to the master node(s)"
-  default = 5
+  default = 3
 }
 
 variable "k8s_worker_ram" {
   type = number
   description = "The amount of RAM to allocate to the master node(s)"
-  default = 14336
+  default = 9216
 }

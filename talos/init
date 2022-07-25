@@ -5,8 +5,6 @@ read -rp "Control plane IP address = " control_plane_ip
 
 echo 'Generating configurations'
 talosctl gen config talos-vbox-cluster "https://${control_plane_ip}:6443" --output-dir .out
-# TODO: Change name
-# talosctl gen config homelab "https://${control_plane_ip}:6443" --output-dir .out
 
 echo 'Creating control plane node'
 talosctl apply-config --insecure --nodes ${control_plane_ip} --file .out/controlplane.yaml
@@ -19,7 +17,7 @@ ifs=$IFS
 IFS=,
 for worker in ${worker_ips}; do
   echo "Creating worker node [${worker}]"
-  talosctl apply-config --insecure --nodes ${worker} --file .out/worker.yaml
+  talosctl apply-config --insecure --nodes ${worker} --file .out/worker_${worker}.yaml
 done
 IFS=$ifs
 echo 'Starting bootstrapping process'
@@ -28,7 +26,7 @@ talosctl config endpoint ${control_plane_ip}
 talosctl config node ${control_plane_ip}
 
 echo 'Bootstrapping etc'
-talosctl serivce apid status
+talosctl service apid status
 talosctl bootstrap
 
 # Wait for the cluster to become healthy

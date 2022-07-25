@@ -33,10 +33,6 @@ After the Proxmox node has been made available, login to it's GUI to create the 
 Get the ISO URL from [Talos](https://github.com/siderolabs/talos/releases)  
 In the Proxmox GUI, go to local storage -> ISO Images and then with Download from URL add the Talos image to node.
 
-#### Template
-Create two VMs without starting them. Both based on the Talos image, but with different resource allocation.  
-One will be created for master nodes and one for worker nodes. Allocate your resources accordingly, but keep in mind that a k8s master node is advised to have at least 2 CPU and 2 GB of RAM.
-
 ### Run terraform
 After this, you will be able to use Terraform to roll out the desired VMs.  
 The setup uses API token authentication, you will be prompted for it but can also be set by `export TF_VAR_proxmox_api_key_secret='API_KEY'`
