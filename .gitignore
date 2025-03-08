@@ -96,6 +96,8 @@ crash.*.log
 *.tfvars
 *.tfvars.json
 
+!_homelab_variables.auto.tfvars
+
 # Ignore override files as they are usually used to override resources locally and so
 # are not checked in
 override.tf
@@ -111,6 +113,7 @@ override.tf.json
 
 # Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
 # example: *tfplan*
+*.tfplan
 
 # Ignore CLI configuration files
 .terraformrc
