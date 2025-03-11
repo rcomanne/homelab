@@ -5,12 +5,10 @@ ports:
     tls:
       enabled: true
       certResolver: "letsencrypt"
-  postgres:
-    port: 5432
-    expose: true
-    exposedPort: 5432
-    protocol: TCP
 
+ingressRoute:
+  dashboard:
+    enabled: true
 
 certResolvers:
   letsencrypt:
@@ -21,8 +19,8 @@ certResolvers:
 
 providers:
   kubernetesIngress:
+    allowExternalNameServices: true
     publishedService:
-      allowExternalNameServices: true
       enabled: true
 
 logs:
