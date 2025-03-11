@@ -99,12 +99,6 @@ resource "helm_release" "argo_cd" {
   name             = "argo-cd"
   version          = var.argo_cd_version
 
-  // Weird formatting does not behave as expected in the values.yaml file...
-  set {
-    name  = "configs.params.server\\.insecure"
-    value = true
-  }
-
   set_sensitive {
     name  = "configs.secret.argocdServerAdminPassword"
     value = random_password.argo_cd_admin.bcrypt_hash

@@ -3,6 +3,7 @@ crds:
   keep: false
 
 global:
+  domain: ${argo_cd_host}
   networkPolicy:
     create: false
     defaultDenyIngress: false
@@ -10,12 +11,13 @@ global:
 server:
   ingress:
     enabled: true
+    ingressClassName: traefik
     annotations:
       traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    hosts:
-      - ${argo_cd_host}
 
 configs:
+  params:
+    server.insecure: true
   cm:
     url: "https://${argo_cd_host}"
     oidc.config: |
