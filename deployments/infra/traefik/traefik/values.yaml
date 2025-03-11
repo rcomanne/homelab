@@ -9,7 +9,7 @@ traefik:
     dashboard:
       enabled: true
 
-  certResolvers:
+  certificatesResolvers:
     letsencrypt:
       caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
       email: info@rcomanne.nl
