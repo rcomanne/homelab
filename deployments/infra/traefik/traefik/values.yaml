@@ -1,35 +1,33 @@
-ports:
-  traefik:
-    expose: true
-  websecure:
-    tls:
+traefik:
+  ports:
+    traefik:
+      expose: true
+    websecure:
+      tls:
+        enabled: true
+        certResolver: "letsencrypt"
+
+  ingressRoute:
+    dashboard:
       enabled: true
-      certResolver: "letsencrypt"
 
-ingressRoute:
-  dashboard:
-    enabled: true
+  certResolvers:
+    letsencrypt:
+      caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
+      email: info@rcomanne.nl
+      tlsChallenge: true
+      storage: /data/letsencrypt.json
 
-additionalArguments:
-  - "--api.insecure=true"
-
-certResolvers:
-  letsencrypt:
-    caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
-    email: info@rcomanne.nl
-    tlsChallenge: true
-    storage: /data/letsencrypt.json
-
-providers:
-  kubernetesIngress:
-    enabled: true
-    allowExternalNameServices: true
-    publishedService:
+  providers:
+    kubernetesIngress:
       enabled: true
-  kubernetesCRD:
-    enabled: true
+      allowExternalNameServices: true
+      publishedService:
+        enabled: true
+    kubernetesCRD:
+      enabled: true
 
-logs:
-  general:
-    format: json
-    level: INFO
+  logs:
+    general:
+      format: json
+      level: INFO
