@@ -139,6 +139,9 @@ resource "argocd_application_set" "infra" {
   }
 
   spec {
+    go_template = true
+    go_template_options = ["missingkey=error"]
+
     generator {
       git {
         repo_url = local.repo_url
@@ -152,7 +155,7 @@ resource "argocd_application_set" "infra" {
 
     template {
       metadata {
-        name = "{{path.basenameNormalized}}"
+        name = "{{.path.basenameNormalized}}"
         namespace = local.argo_cd_namespace
       }
 
@@ -160,12 +163,12 @@ resource "argocd_application_set" "infra" {
         source {
           repo_url        = local.repo_url
           target_revision = "HEAD"
-          path            = "{{path.path}}"
+          path            = "{{.path.path}}"
         }
 
         destination {
           server    = local.argo_cd_cluster_server
-          namespace = "{{index .path.segmets 2}}"
+          namespace = "{{index .path.segments 2}}"
         }
 
         sync_policy {
