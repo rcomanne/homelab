@@ -11,10 +11,11 @@ traefik:
 
   certificatesResolvers:
     letsencrypt:
-      caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
-      email: info@rcomanne.nl
-      tlsChallenge: true
-      storage: /data/letsencrypt.json
+      acme:
+        caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
+        email: info@rcomanne.nl
+        tlsChallenge: true
+        storage: /data/letsencrypt.json
 
   providers:
     kubernetesIngress:
