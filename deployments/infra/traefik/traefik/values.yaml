@@ -1,7 +1,5 @@
 traefik:
   ports:
-    traefik:
-      expose: true
     websecure:
       tls:
         enabled: true
