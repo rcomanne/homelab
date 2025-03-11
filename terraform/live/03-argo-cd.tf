@@ -1,14 +1,7 @@
-terraform {
-  required_providers {
-    argocd = {
-      source  = "oboukili/argocd"
-      version = "6.1.1"
-    }
-  }
-}
 locals {
+  argo_cd_namespace      = "argo"
   argo_cd_host           = "argocd.${var.domain}"
-  argo_cd_admins         = [data.azuread_client_config.current.object_id]
+  argo_cd_admins = [data.azuread_client_config.current.object_id]
   argo_cd_repository     = "https://argoproj.github.io/argo-helm"
   argo_cd_cluster_server = "https://kubernetes.default.svc"
 }
@@ -73,7 +66,7 @@ resource "azuread_application" "argo_cd" {
 
 resource "azuread_service_principal" "argo_cd" {
   client_id = azuread_application.argo_cd.client_id
-  owners    = [data.azuread_client_config.current.object_id]
+  owners = [data.azuread_client_config.current.object_id]
 }
 
 resource "azuread_service_principal_password" "argo_cd" {
@@ -91,7 +84,7 @@ resource "azurerm_key_vault_secret" "argo_cd_spn" {
 
 resource "azuread_group" "argo_cd_admin" {
   display_name     = "argocd-admin"
-  owners           = [data.azuread_client_config.current.object_id]
+  owners = [data.azuread_client_config.current.object_id]
   security_enabled = true
 
   members = local.argo_cd_admins
@@ -135,8 +128,57 @@ resource "helm_release" "argo_cd" {
   wait            = true
 }
 
-resource "argocd_application_set" "git_directories" {
-  metadata {
+resource "argocd_repository" "homelab" {
+  repo = local.repo_url
+}
 
+resource "argocd_application_set" "infra" {
+  metadata {
+    name      = "homelab-infra"
+    namespace = helm_release.argo_cd.namespace
+  }
+
+  spec {
+    generator {
+      git {
+        repo_url = local.repo_url
+        revision = "HEAD"
+
+        directory {
+          path = "deployments/infra/*/*"
+        }
+      }
+    }
+
+    template {
+      metadata {
+        name = "{{path.basenameNormalized}}"
+        namespace = local.argo_cd_namespace
+      }
+
+      spec {
+        source {
+          repo_url        = local.repo_url
+          target_revision = "HEAD"
+          path            = "{{path.path}}"
+        }
+
+        destination {
+          server    = local.argo_cd_cluster_server
+          namespace = "{{index .path.segmets 2}}"
+        }
+
+        sync_policy {
+          automated {
+            prune       = true
+            self_heal   = true
+            allow_empty = true
+          }
+          sync_options = [
+            "CreateNamespace=true"
+          ]
+        }
+      }
+    }
   }
 }

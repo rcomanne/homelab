@@ -32,10 +32,6 @@ terraform {
       source  = "argoproj-labs/argocd"
       version = ">= 7, < 8"
     }
-    # argocd = {
-    #   source = "oboukili/argocd"
-    #   version = ">= 6, < 7"
-    # }
 
     postgresql = {
       source  = "cyrilgdn/postgresql"
