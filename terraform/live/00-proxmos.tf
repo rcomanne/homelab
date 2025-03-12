@@ -11,6 +11,7 @@ resource "proxmox_vm_qemu" "k8s_master_nodes" {
 
   onboot   = true
   oncreate = true
+  agent    = 1
 
   disk {
     type    = "sata"

@@ -1,0 +1,9 @@
+metrics-server:
+  rbac:
+    create: true
+
+  apiService:
+    insecureSkipTLSVerify: true
+
+  args:
+    - --kubelet-insecure-tls
