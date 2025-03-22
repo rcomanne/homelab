@@ -14,7 +14,7 @@ traefik:
       acme:
         caServer: "https://acme-v02.api.letsencrypt.org/directory"
         email: info@rcomanne.nl
-        tlsChallenge: { }
+        tlsChallenge: true
         storage: /data/letsencrypt.json
 
   providers:
