@@ -21,13 +21,13 @@ democratic-csi:
         node-publish-secret:
         controller-expand-secret:
 
-  volumeSnapshotClasses:
-    - name: iscsi
-      parameters:
-        detachedSnapshots: "true"
+  volumeSnapshotClasses: []
+#    - name: iscsi
+#      parameters:
+#        detachedSnapshots: "true"
 
   driver:
-    existingConfigSecret: my-secret
+    existingConfigSecret: "democratic-csi-driver-config"
     config:
       driver: freenas-api-iscsi
       instance_id:

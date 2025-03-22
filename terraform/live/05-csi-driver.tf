@@ -2,7 +2,8 @@ resource "kubernetes_namespace" "csi" {
   metadata {
     name = "csi"
     labels = {
-      "app.kubernetes.io/managed-by" = "terraform"
+      "app.kubernetes.io/managed-by"       = "terraform"
+      "pod-security.kubernetes.io/enforce" = "privileged"
     }
   }
 }
