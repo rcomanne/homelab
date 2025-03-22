@@ -30,4 +30,4 @@ traefik:
   logs:
     general:
       format: json
-      level: INFO
+      level: DEBUG
