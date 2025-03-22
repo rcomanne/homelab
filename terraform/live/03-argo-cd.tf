@@ -1,7 +1,7 @@
 locals {
   argo_cd_namespace      = "argo"
   argo_cd_host           = "argocd.${var.domain}"
-  argo_cd_admins = [data.azuread_client_config.current.object_id]
+  argo_cd_admins         = [data.azuread_client_config.current.object_id]
   argo_cd_repository     = "https://argoproj.github.io/argo-helm"
   argo_cd_cluster_server = "https://kubernetes.default.svc"
 }
@@ -66,7 +66,7 @@ resource "azuread_application" "argo_cd" {
 
 resource "azuread_service_principal" "argo_cd" {
   client_id = azuread_application.argo_cd.client_id
-  owners = [data.azuread_client_config.current.object_id]
+  owners    = [data.azuread_client_config.current.object_id]
 }
 
 resource "azuread_service_principal_password" "argo_cd" {
@@ -84,7 +84,7 @@ resource "azurerm_key_vault_secret" "argo_cd_spn" {
 
 resource "azuread_group" "argo_cd_admin" {
   display_name     = "argocd-admin"
-  owners = [data.azuread_client_config.current.object_id]
+  owners           = [data.azuread_client_config.current.object_id]
   security_enabled = true
 
   members = local.argo_cd_admins

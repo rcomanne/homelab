@@ -25,3 +25,6 @@ k8s_workers = {
 domain = "rcomanne.nl"
 
 argo_cd_version = "7.8.8"
+
+truenasHost         = "192.168.2.3"
+truenasDataSetIscsi = "/habbo/k8s/iscsi"

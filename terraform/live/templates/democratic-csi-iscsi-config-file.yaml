@@ -1,0 +1,42 @@
+driver: freenas-api-iscsi
+httpConnection:
+  allowInsecure: true
+  apiKey: ${truenasApiKey}
+  host: ${truenasHost}
+  port: ${truenasPort}
+  protocol: http
+instance_id: null
+iscsi:
+  extentAvailThreshold: 0
+  extentBlocksize: 512
+  extentDisablePhysicalBlocksize: true
+  extentInsecureTpc: true
+  extentRpm: SSD
+  extentXenCompat: false
+  interface: null
+  namePrefix: csi-
+  nameSuffix: -homelab
+  targetGroups:
+  - targetGroupAuthGroup: null
+    targetGroupAuthType: None
+    targetGroupInitiatorGroup: 1
+    targetGroupPortalGroup: 1
+  targetPortal: http://${truenasHost}:3260
+  targetPortals: []
+node:
+  driver:
+    extraEnv:
+    - name: ISCSIADM_HOST_STRATEGY
+      value: nsenter
+    - name: ISCSIADM_HOST_PATH
+      value: /usr/local/sbin/iscsiadm
+    iscsiDirHostPath: /usr/local/etc/iscsi
+    iscsiDirHostPathType: ""
+  hostPID: true
+zfs:
+  datasetParentName: ${datasetParentName}
+  detachedSnapshotsDatasetParentName: ${snapshotDatasetParentName}
+  zvolBlocksize: null
+  zvolCompression: null
+  zvolDedup: null
+  zvolEnableReservation: false

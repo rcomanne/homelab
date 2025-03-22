@@ -47,6 +47,7 @@ resource "proxmox_vm_qemu" "k8s_worker_nodes" {
 
   onboot   = true
   oncreate = true
+  agent    = 1
   #  boot     = "order=scsi0;net0"
 
   disk {

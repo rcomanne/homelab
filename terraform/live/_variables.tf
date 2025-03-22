@@ -45,3 +45,21 @@ variable "domain" {
 variable "argo_cd_version" {
   type = string
 }
+
+variable "truenasHost" {
+  type = string
+}
+
+variable "truenasPort" {
+  type    = number
+  default = 80
+}
+
+variable "truenasApiKey" {
+  type      = string
+  sensitive = true
+}
+
+variable "truenasDataSetIscsi" {
+  type = string
+}

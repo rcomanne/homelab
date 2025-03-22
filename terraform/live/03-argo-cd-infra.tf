@@ -5,7 +5,7 @@ resource "argocd_project" "infra" {
   }
 
   spec {
-    description = "This project contains all infrastructure components needed for running the cluster itself."
+    description  = "This project contains all infrastructure components needed for running the cluster itself."
     source_repos = ["*"]
 
 
@@ -34,7 +34,7 @@ resource "argocd_application_set" "infra" {
   }
 
   spec {
-    go_template = true
+    go_template         = true
     go_template_options = ["missingkey=error"]
 
     generator {
