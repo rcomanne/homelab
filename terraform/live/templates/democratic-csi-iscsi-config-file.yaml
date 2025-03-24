@@ -21,7 +21,7 @@ iscsi:
     targetGroupAuthType: None
     targetGroupInitiatorGroup: 1
     targetGroupPortalGroup: 1
-  targetPortal: http://${truenasHost}:3260
+  targetPortal: ${truenasHost}:3260
   targetPortals: []
 node:
   driver:
