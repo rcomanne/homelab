@@ -16,6 +16,7 @@ home-assistant:
       - host: home-assistant.rcomanne.nl
         paths:
           - path: /
+            pathType: Prefix
 
   configuration:
     enabled: true
