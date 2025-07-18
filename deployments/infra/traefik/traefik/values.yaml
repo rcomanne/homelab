@@ -15,9 +15,9 @@ traefik:
 #        caServer: "https://acme-staging-v02.api.letsencrypt.org/directory" # STAGING
         caServer: "https://acme-v02.api.letsencrypt.org/directory" # PROD
         email: info@rcomanne.nl
-        tlsChallenge: true
-#        httpChallenge:
-#          entryPoint: web
+#        tlsChallenge: true
+        httpChallenge:
+          entryPoint: web
         storage: /data/letsencrypt.json
 
   providers:
