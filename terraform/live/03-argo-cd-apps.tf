@@ -72,7 +72,8 @@ resource "argocd_application_set" "apps" {
             allow_empty = true
           }
           sync_options = [
-            "CreateNamespace=true"
+            "CreateNamespace=true",
+            "ServerSideApply=true"
           ]
         }
       }

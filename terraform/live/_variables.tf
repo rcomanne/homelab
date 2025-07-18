@@ -14,6 +14,7 @@ variable "azure_subscription_id" {
 
 variable "k8s_masters" {
   type = map(object({
+    vmid         = number
     mac_address  = string
     ip_address   = string
     cpu_cores    = optional(number, 2)
@@ -25,6 +26,7 @@ variable "k8s_masters" {
 
 variable "k8s_workers" {
   type = map(object({
+    vmid         = number
     mac_address  = string
     ip_address   = string
     cpu_cores    = optional(number, 4)
@@ -35,6 +37,10 @@ variable "k8s_workers" {
 }
 
 variable "talos_iso_file" {
+  type = string
+}
+
+variable "talos_factory_installer_image" {
   type = string
 }
 

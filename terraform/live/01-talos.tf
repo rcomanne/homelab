@@ -32,7 +32,8 @@ resource "talos_machine_configuration_apply" "controlplane" {
   node                        = each.value.ip_address
   config_patches = [
     templatefile("${path.module}/templates/talos-node-configuration.yaml", {
-      hostname = each.key
+      hostname                       = each.key
+      talos_factory_installer_imager = var.talos_factory_installer_image
     })
   ]
 }
@@ -56,7 +57,8 @@ resource "talos_machine_configuration_apply" "worker" {
   node                        = each.value.ip_address
   config_patches = [
     templatefile("${path.module}/templates/talos-node-configuration.yaml", {
-      hostname = each.key
+      hostname                       = each.key
+      talos_factory_installer_imager = var.talos_factory_installer_image
     })
   ]
 }
@@ -77,6 +79,17 @@ resource "talos_cluster_kubeconfig" "this" {
 
   client_configuration = talos_machine_secrets.this.client_configuration
   node                 = local.master_ips[0]
+}
+
+data "talos_client_configuration" "full" {
+  client_configuration = talos_machine_secrets.this.client_configuration
+  cluster_name         = local.cluster_name
+
+  endpoints = local.master_ips
+  nodes = concat(
+    local.master_ips,
+    local.worker_ips
+  )
 }
 
 data "talos_cluster_health" "this" {

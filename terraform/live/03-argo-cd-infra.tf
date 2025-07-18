@@ -74,7 +74,8 @@ resource "argocd_application_set" "infra" {
             allow_empty = true
           }
           sync_options = [
-            "CreateNamespace=true"
+            "CreateNamespace=true",
+            "ServerSideApply=true"
           ]
         }
       }

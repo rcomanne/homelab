@@ -3,3 +3,4 @@ machine:
         hostname: ${hostname}
     install:
         disk: "/dev/sda"
+        image: ${talos_factory_installer_imager}

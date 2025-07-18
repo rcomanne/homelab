@@ -6,6 +6,11 @@ configMapGenerator:
     files:
       - env_vars
 
+images:
+  - name: mealie
+    newName: ghcr.io/mealie-recipes/mealie
+    newTag: v3.0.1
+
 labels:
   - pairs:
       app.kubernetes.io/name: mealie

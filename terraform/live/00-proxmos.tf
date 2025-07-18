@@ -3,6 +3,7 @@ resource "proxmox_vm_qemu" "k8s_master_nodes" {
 
   target_node = "pve"
   name        = each.key
+  vmid        = each.value.vmid
   iso         = var.talos_iso_file
 
   cpu    = "host"
@@ -39,6 +40,7 @@ resource "proxmox_vm_qemu" "k8s_worker_nodes" {
 
   target_node = "pve"
   name        = each.key
+  vmid        = each.value.vmid
   iso         = var.talos_iso_file
 
   cpu    = "host"
