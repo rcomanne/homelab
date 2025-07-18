@@ -33,3 +33,7 @@ traefik:
     general:
       format: json
       level: DEBUG
+
+  service:
+    spec:
+      externalTrafficPolicy: Local
