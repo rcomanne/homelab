@@ -12,10 +12,12 @@ traefik:
   certificatesResolvers:
     letsencrypt:
       acme:
-        caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
+#        caServer: "https://acme-staging-v02.api.letsencrypt.org/directory" # STAGING
+        caServer: "https://acme-v02.api.letsencrypt.org/directory" # PROD
         email: info@rcomanne.nl
-        httpChallenge:
-          entryPoint: web
+        tlsChallenge: true
+#        httpChallenge:
+#          entryPoint: web
         storage: /data/letsencrypt.json
 
   providers:
@@ -30,4 +32,4 @@ traefik:
   logs:
     general:
       format: json
-      level: INFO
+      level: DEBUG
