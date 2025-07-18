@@ -26,5 +26,5 @@ domain = "rcomanne.nl"
 
 argo_cd_helm_chart_version = "8.1.3"
 
-truenas_host         = "192.168.2.3"
-truenas_data_set_iscsi = "/habbo/k8s/iscsi"
+truenas_host           = "192.168.2.3"
+truenas_data_set_iscsi = "habbo/k8s/iscsi"
