@@ -6,6 +6,10 @@ resource "kubernetes_namespace" "csi" {
       "pod-security.kubernetes.io/enforce" = "privileged"
     }
   }
+
+  depends_on = [
+    data.talos_cluster_health.this
+  ]
 }
 
 resource "kubernetes_secret" "democratic_csi_driver" {
@@ -24,11 +28,15 @@ resource "kubernetes_secret" "democratic_csi_driver" {
 
   data = {
     "driver-config-file.yaml" = templatefile("${path.module}/templates/democratic-csi-iscsi-config-file.yaml", {
-      truenasApiKey             = var.truenasApiKey,
-      truenasHost               = var.truenasHost
-      truenasPort               = var.truenasPort
-      datasetParentName         = "${var.truenasDataSetIscsi}/v"
-      snapshotDatasetParentName = "${var.truenasDataSetIscsi}/s"
+      truenasApiKey             = var.truenas_api_key,
+      truenasHost               = var.truenas_host
+      truenasPort               = var.truenas_port
+      datasetParentName         = "${var.truenas_data_set_iscsi}/v"
+      snapshotDatasetParentName = "${var.truenas_data_set_iscsi}/s"
     })
   }
+
+  depends_on = [
+    data.talos_cluster_health.this
+  ]
 }

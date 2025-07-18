@@ -97,7 +97,7 @@ resource "helm_release" "argo_cd" {
   namespace        = "argo"
   create_namespace = true
   name             = "argo-cd"
-  version          = var.argo_cd_version
+  version          = var.argo_cd_helm_chart_version
 
   set_sensitive {
     name  = "configs.secret.argocdServerAdminPassword"
@@ -120,6 +120,10 @@ resource "helm_release" "argo_cd" {
 
   cleanup_on_fail = true
   wait            = true
+
+  depends_on = [
+    data.talos_cluster_health.this
+  ]
 }
 
 resource "argocd_repository" "homelab" {

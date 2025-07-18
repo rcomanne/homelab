@@ -42,24 +42,24 @@ variable "domain" {
   type = string
 }
 
-variable "argo_cd_version" {
+variable "argo_cd_helm_chart_version" {
   type = string
 }
 
-variable "truenasHost" {
+variable "truenas_host" {
   type = string
 }
 
-variable "truenasPort" {
+variable "truenas_port" {
   type    = number
   default = 80
 }
 
-variable "truenasApiKey" {
+variable "truenas_api_key" {
   type      = string
   sensitive = true
 }
 
-variable "truenasDataSetIscsi" {
+variable "truenas_data_set_iscsi" {
   type = string
 }

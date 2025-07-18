@@ -4,4 +4,4 @@ metadata:
   name: default-pool
 spec:
   addresses:
-    - 192.168.2.220/32
+    - 192.168.2.180/32
